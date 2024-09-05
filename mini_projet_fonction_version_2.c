@@ -68,20 +68,22 @@ void ajoute_un_livre(livre *Librairie, int *taille)
 
 // ###### supprimer ##########
 
-void supprimer(livre *Librairie, int index, int *taille)
-{
-    for (int i = index; i < *taille - 1; i++)
-    {
-        Librairie[i] = Librairie[i + 1];
-    }
-    free(Librairie + (*taille));
-    (*taille)--;
-    printf("livre est supprime");
-}
+// void supprimer(livre *Librairie, int index, int *taille)
+// {
+//     for (int i = index; i < *taille - 1; i++)
+//     {
+//         Librairie[i] = Librairie[i + 1];
+//     }
+//     free(Librairie + (*taille));
+//     (*taille)--;
+//     printf("livre est supprime");
+// }
 
 void ajoute(livre *Librairie, int *taille)
 {
-    printf(" \n========= Ajouter un livre au stock ========= \n");
+    printf("\n ****************************************************************** ");
+    printf(" \n=================== Ajouter un livre au stock =================== \n");
+    printf(" ******************************************************************\n ");
     char reponce = 'y';
     do
     {
@@ -97,7 +99,9 @@ void ajoute(livre *Librairie, int *taille)
 
 void Afficher_tous_les_livres(livre *Librairie, int *taille)
 {
-    printf(" \n========= ficher tous les livres disponibles ========= \n");
+    printf("\n ****************************************************************** ");
+    printf(" \n=============== ficher tous les livres disponibles =============== \n");
+    printf(" ******************************************************************\n ");
 
     printf("\n=========================================================================================\n");
     printf("   id |             titre            |            auteur            |  prix    |   quantite   ");
@@ -111,35 +115,33 @@ void Afficher_tous_les_livres(livre *Librairie, int *taille)
 
 void Rechercher_un_livre_par_so_titre(livre *Librairie, int *taille)
 {
-    printf(" \n========= Rechercher un livre par son titre. ========= \n");
+    printf("\n ****************************************************************** ");
+    printf(" \n=============== Rechercher un livre par son titre. =============== \n");
+    printf(" ****************************************************************** \n");
     char temp[100];
-    livre recherche_table[100];
-    int count = 0;
-    printf(" entrer un titre pour recherche : ");
+    int y = -1;
+    int test = -1;
+
+    printf(" entrer un titre pour recherche  : ");
 
     getchar();
     scanf("%[^\n]", temp);
     getchar();
+    printf("\n=========================================================================================\n");
+    printf("   id |             titre            |            auteur            |  prix    |   quantite   ");
+    printf("\n=========================================================================================\n");
     for (int i = 0; i < *taille; i++)
     {
         if (strncmp(temp, Librairie[i].titre, strlen(temp)) == 0)
         {
-            recherche_table[count++] = Librairie[i];
+            test = 1;
+            printf("   %d  |%30s|%30s|%10.2f|%6d   \n", i, Librairie[i].titre, Librairie[i].auteur, Librairie[i].prix, Librairie[i].quantite);
+            printf("---------------------------------------------------------------------------------------\n");
         }
     }
-    if (count > 0)
+    if (test == -1 )
     {
-        printf("\n===================================================================================\n");
-        printf("      |             titre            |            auteur            |  prix    |   quantite   ");
-        printf("\n===================================================================================\n");
-        for (int i = 0; i < *taille; i++)
-        {
-            printf("      |%30s|%30s|%10.2f|%6d   \n", recherche_table[i].titre, recherche_table[i].auteur, recherche_table[i].prix, recherche_table[i].quantite);
-        }
-    }
-    else
-    {
-        printf("aucun livre avec ce titre : %s", temp);
+      printf("aucun livre avec ce titre : %s", temp);
     }
 }
 
@@ -149,29 +151,48 @@ void Mettre_a_jour_la_quantite_un_livre(livre *Librairie, int *taille)
     char temp[100];
 
     int y = -1;
+    int test = -1;
+
     printf(" entrer un titre pour recherche pour mettre a jour : ");
 
     // index_par_titre(Librairie ,taille ,&y,temp);
     getchar();
     scanf("%[^\n]", temp);
     getchar();
+    // for (int i = 0; i < *taille; i++)
+    // {
+    //     if (strncmp(temp, Librairie[i].titre, strlen(temp)) == 0)
+    //     {
+    //         y = i;
+    //         break;
+    //     }
+    // }
+    printf("\n=========================================================================================\n");
+    printf("   id |             titre            |            auteur            |  prix    |   quantite   ");
+    printf("\n=========================================================================================\n");
     for (int i = 0; i < *taille; i++)
     {
         if (strncmp(temp, Librairie[i].titre, strlen(temp)) == 0)
         {
-            y = i;
-            break;
+            test = 1;
+            printf("   %d  |%30s|%30s|%10.2f|%6d   \n", i, Librairie[i].titre, Librairie[i].auteur, Librairie[i].prix, Librairie[i].quantite);
+            printf("---------------------------------------------------------------------------------------\n");
         }
     }
-    if (y != -1)
+    if (test == 1)
     {
+        printf(" svp donne le id de livre pour le mettre a jour : ");
+
+        scanf("%d", &y);
+        
         printf(" voila le current quantite %d donne la nouvelle valeur : ", Librairie[y].quantite);
         scanf(" %d", &Librairie[y].quantite);
         printf("apres mettre a jour");
-        printf("\n===================================================================================\n");
-        printf("     |       titre           |        auteur          |  prix    |   quantite   ");
-        printf("\n===================================================================================\n");
-        printf("     |       %s           |        %s          |  %.2f    |   %d  \n ", Librairie[y].titre, Librairie[y].auteur, Librairie[y].prix, Librairie[y].quantite);
+        printf("\n========================================================================================\n");
+        printf("     |             titre            |            auteur            |  prix    |   quantite   ");
+        printf("\n========================================================================================\n");
+        printf("     |%30s|%30s|%10.2f|%6d  \n ", Librairie[y].titre, Librairie[y].auteur, Librairie[y].prix, Librairie[y].quantite);
+        printf("---------------------------------------------------------------------------------------\n");
     }
     else
     {
@@ -181,7 +202,9 @@ void Mettre_a_jour_la_quantite_un_livre(livre *Librairie, int *taille)
 
 void Supprimer_un_livre_du_stock(livre *Librairie, int *taille)
 {
-    printf(" \n========= Supprimer un livre du stock. ========= \n");
+    printf("\n ****************************************************************** ");
+    printf(" \n================== Supprimer un livre du stock. ================== \n");
+    printf(" ******************************************************************\n ");
     char temp[100];
 
     int y = -1;
@@ -246,8 +269,12 @@ void Supprimer_un_livre_du_stock(livre *Librairie, int *taille)
 // }
 
 void Afficher_le_nombre_total_de_livres_en_stock(livre *Librairie, int *taille)
+    
 {
-    printf(" \n========= Afficher le nombre total de livres en stock. ========= \n");
+    printf("\n ****************************************************************** ");
+    printf("\n ========= Afficher le nombre total de livres en stock. ========= \n");
+    printf(" ******************************************************************\n ");
+
     if ((*taille) > 0)
     {
         int somme_book = 0;
@@ -266,7 +293,11 @@ void Afficher_le_nombre_total_de_livres_en_stock(livre *Librairie, int *taille)
 void menu(livre *Librairie, int *taille)
 {
     int choix;
-    printf(" ========= Systeme de Gestion de Stock dans une Librairie ========= ");
+    printf(" \n****************************************************************** ");
+
+    printf(" \n========= Systeme de Gestion de Stock dans une Librairie ========= ");
+    printf(" \n******************************************************************\n ");
+
     printf("\n1 : Ajouter un livre au stock.");
     printf("\n2 : Afficher tous les livres disponibles.   ");
     printf("\n3 : Rechercher un livre par son titre.    ");
