@@ -1,7 +1,7 @@
 #include<stdio.h>
 // #include"mini_projet_fonction.c"
 #include"mini_projet_fonction_version_2.c"
-// #include<mini_projet_lib.h>
+// #include"mini_projet_lib.h"
 
 
 
